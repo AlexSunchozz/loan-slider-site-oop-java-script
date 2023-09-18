@@ -1,8 +1,8 @@
 import Slider from "./slider";
 
 export default class MainSlider extends Slider {
-    constructor(page, btns) {
-        super(page, btns); // вызывает родительский конструктор
+    constructor(btns) {
+        super(btns); // вызывает родительский конструктор
     }
 
     showSlides(n) {
