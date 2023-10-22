@@ -39,12 +39,7 @@ export default class MainSlider extends Slider {
         this.showSlides(this.slideIndex += n);
     }
 
-    render() {
-        // поиск всплывающего блока на третей странице
-        try {
-            this.hanson = document.querySelector('.hanson');
-        } catch(e) {}
-
+    bindTriggers() {
         this.btns.forEach(item => {
             item.addEventListener('click', () => {
                 this.plusSlides(1);
@@ -57,6 +52,32 @@ export default class MainSlider extends Slider {
             });
         });
 
-        this.showSlides(this.slideIndex);
+        document.querySelectorAll('.prevmodule').forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.stopPropagation(); // отмена всплытия события, так как стелка справа тоже имеет класс next, что и родитель этой стрелки у маленького слайдера
+                e.preventDefault();
+                this.plusSlides(-1);
+            }); 
+        });   
+        
+        document.querySelectorAll('.nextmodule').forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.stopPropagation(); // отмена всплытия события, так как стелка справа тоже имеет класс next, что и родитель этой стрелки у маленького слайдера
+                e.preventDefault();
+                this.plusSlides(1);
+            }); 
+        });  
+    }
+
+    render() {
+        if (this.container) {
+            // поиск всплывающего блока на третей странице
+            try {
+                this.hanson = document.querySelector('.hanson');
+            } catch(e) {}
+
+            this.showSlides(this.slideIndex);
+            this.bindTriggers();
+       } 
     }
 }
